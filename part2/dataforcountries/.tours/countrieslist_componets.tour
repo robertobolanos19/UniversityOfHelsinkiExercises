@@ -1,0 +1,36 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "CountriesList_componets",
+  "steps": [
+    {
+      "file": "src/components/CountriesList.js",
+      "description": "CountryItem is being imported from CountryItem so that data from CountriesList can be sent to it.",
+      "line": 1
+    },
+    {
+      "file": "src/components/CountriesList.js",
+      "description": "Country is being imported so CountryItem can send data to its module",
+      "line": 2
+    },
+    {
+      "file": "src/components/CountriesList.js",
+      "description": "CountriesList is being used for more than one purpose, first it is creating a filtered variable that will be used in the Country module. This it is returning the Country module if the filtered length is only 1 (basically if there is only 1 match), else another nested if else statement is executed. the nested if statement shows the current filtered variable's value only if there is 10 or less countries, else if there are more than 10 countries in the filtered.length it will prompt the user to be more specific.",
+      "line": 4
+    },
+    {
+      "file": "src/components/CountriesList.js",
+      "description": "The filtered variable is using countries as the data point to use the filtered and map methods. \n\nthe filter is method is going through each of the objects in countries, which we have called c. It is checking that name.common.toLowerCase() includes filter.toLowerCase(). This results in an array of one or more objects that have the common name match the search term.\n\nnow that the filter method completed its job there is an array of objects, we need to create a map of it. map goes over the array and while TECHNICALLY it creates a new array, you dont do anything with the new array. Instead we iterate over the filtered array and send the values to the CountryItem component, with the specific key-value pairs sent to the component.",
+      "line": 5
+    },
+    {
+      "file": "src/components/CountriesList.js",
+      "description": "This function has multiple possible returns, the first return is executed if the filtered.length is ===1 it would then return the Country component. Else it executes a nested if-else statement, if filtered.length <=10 then it will returned all the filtered variable's values, else it prompts the user to be more specific.",
+      "line": 10
+    },
+    {
+      "file": "src/components/CountriesList.js",
+      "description": "Country component is used to show only one country if filtered.length only matches with oen country, it takes two props: countries, filter.",
+      "line": 11
+    }
+  ]
+}

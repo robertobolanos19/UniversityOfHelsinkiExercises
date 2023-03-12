@@ -1,0 +1,46 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Services",
+  "steps": [
+    {
+      "file": "src/services/countriesServices.js",
+      "description": "importing axios to execute methods needed to get data from server and utilize other functions.",
+      "line": 1
+    },
+    {
+      "file": "src/services/countriesServices.js",
+      "description": "url of the server where the data is coming from.",
+      "line": 3
+    },
+    {
+      "file": "src/services/countriesServices.js",
+      "description": "getAll is used to get the data from the server.",
+      "line": 5
+    },
+    {
+      "file": "src/services/countriesServices.js",
+      "description": "const request is initalizing where the data will be coming from.",
+      "line": 7
+    },
+    {
+      "file": "src/services/countriesServices.js",
+      "description": "this return is returning request.then. request.then has response object as a parameter, the response object contains all the essential data related to the response of an an HTTP GET request, which would include the returned data, status code, and headers.",
+      "line": 8
+    },
+    {
+      "file": "src/services/countriesServices.js",
+      "description": "let sorted is based on response that uses multiple methods, first it selects the responses data with: response.data, after this it then uses slice() basically makes a copy of the original array from the data which can be used to avoid altering the original data. Once its slice the sort method is executed, this method is combine with a compare function to check if a name comes first or before.\n\nbasic idea: function(a,b){return a-b}\\n\\nif returns negative, a is sorted before b. if returns positive, b is sorted before a. if returns 0 the sorting is not affected and will continue.",
+      "line": 10
+    },
+    {
+      "file": "src/services/countriesServices.js",
+      "description": "after sorted is done, the array is then set into setCountries.",
+      "line": 15
+    },
+    {
+      "file": "src/services/countriesServices.js",
+      "description": "exporting the functions so it can be accessed outside the module.",
+      "line": 19
+    }
+  ]
+}

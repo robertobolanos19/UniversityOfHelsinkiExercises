@@ -1,0 +1,31 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Country_component",
+  "steps": [
+    {
+      "file": "src/components/Country.js",
+      "description": "Country function has two props: countries, filter.\n\nthis function creates a country variable that is based on the countries prop, the prop is then filtered and uses the c object as a parameter. it then looks through c.name.common.toLowerCase().includes(filter.toLowerCase()) once its found it then looks for the first item in the array (this is done with [0])\n\n",
+      "line": 1
+    },
+    {
+      "file": "src/components/Country.js",
+      "description": "This function returns a div that contains the previously declared country variable's information.",
+      "line": 4
+    },
+    {
+      "file": "src/components/Country.js",
+      "description": "This function is then exported back so it can be imported and called in the CountriesList module",
+      "line": 14,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 1,
+          "character": 97
+        }
+      }
+    }
+  ]
+}
