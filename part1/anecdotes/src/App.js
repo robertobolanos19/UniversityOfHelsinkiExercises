@@ -17,7 +17,8 @@ const App = () => {
     return Math.floor(Math.random() * length);
   }
 
-  //startingVotes is based on the length which is the length of the main array that will be needed to cycle through, Array() uses this value to create a new array and then the fill method sets them all to 0
+  //startingVotes is based on the length which is the length of the main array that will be needed to cycle through, 
+  //Array() uses this value to create a new array and then the fill method sets them all to 0
   const startingVotes = Array(length).fill(0)
   
   //useState(random()) will make it so that the starting number will always be random due to the function

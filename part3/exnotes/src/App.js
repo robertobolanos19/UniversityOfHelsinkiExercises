@@ -38,14 +38,14 @@ const App = () => {
   }
 
   const notesToShow = showAll
-    ? notes
-    : notes.filter(note => note.important)
+  ? notes
+  : notes.filter(note => note.important)
 
-   const toggleImportanceOf = id => {
-      const note = notes.find(n => n.id === id)
-      const changedNote = { ...note, important: !note.important }
+  const toggleImportanceOf = id => {
+    const note = notes.find(n => n.id === id)
+    const changedNote = { ...note, important: !note.important }
   
-      noteService
+    noteService
         .update(id, changedNote).then(returnedNote => {
           setNotes(notes.map(note => note.id !== id ? note : returnedNote))
         })
@@ -58,7 +58,7 @@ const App = () => {
           }, 5000)
           setNotes(notes.filter(n => n.id !== id))
         })
-    }
+  }
 
   return (
     <div>

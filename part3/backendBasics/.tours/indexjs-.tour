@@ -1,0 +1,116 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "index.js ",
+  "steps": [
+    {
+      "file": "index.js",
+      "description": "It's important that dotenv gets imported before anything else is imported. This ensures that the environment variables from the .env file are available globally before the code from the other modules is imported.",
+      "line": 1
+    },
+    {
+      "file": "index.js",
+      "description": "we are importing the Note schema from this require() so it can be used. ",
+      "line": 11
+    },
+    {
+      "file": "index.js",
+      "description": "I need to review how this works again.",
+      "line": 14,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 1,
+          "character": 39
+        }
+      }
+    },
+    {
+      "file": "index.js",
+      "description": "I need to review how this works again.",
+      "line": 18
+    },
+    {
+      "file": "index.js",
+      "description": "I need to review how this works again.",
+      "line": 24
+    },
+    {
+      "file": "index.js",
+      "description": "This function will be used to generate a id. \n\nfirst we declare maxId, a ternary statement the condition is notes.length>0, if true then value of maxID will be set to Math.max(...notes.map(n=>n.id)), if false its set to 0.\n\nyou might be asking what is happing on Math.max(...notes.map(n=>n.id)). \nnotes.map(n => n.id) creates a new array that contains all the ids of the notes. \nMath.max returns the maximum value of the numbers that are passed to it. \nHowever, notes.map(n => n.id) is an array so it can't directly be given as a parameter to Math.max. The array can be transformed into individual numbers by using the \"three dot\" spread syntax. when this is done Math.max is then able to find the largest number.\n\nafter the maxId is declared with whatever value it was assigned previously it is then added 1 so it can be higher than the base or higher nummber than how many notes are in notes.length.",
+      "line": 35
+    },
+    {
+      "file": "index.js",
+      "description": "need help understanding.",
+      "line": 43
+    },
+    {
+      "file": "index.js",
+      "description": "we are declaring body as the request's body so we can get the users input or data.",
+      "line": 44
+    },
+    {
+      "file": "index.js",
+      "description": "if the body.content === undefined then a error is sent informing that content is missing.",
+      "line": 46
+    },
+    {
+      "file": "index.js",
+      "description": "we are declaring a new note using the Note module we imported. This model requires a user to enter info for the content, but if they leave the important value blank it is declared as false.",
+      "line": 50
+    },
+    {
+      "file": "index.js",
+      "description": "after the note has been declared it then uses the save method, if its successful the then method is executed. The savedNote parameter in the callback function is the saved and newly created note. The data sent back in the response is the formatted version created automatically with the toJSON method.",
+      "line": 55
+    },
+    {
+      "file": "index.js",
+      "description": "need help understanding.",
+      "line": 61
+    },
+    {
+      "file": "index.js",
+      "description": "we are declaring the port from our env file, we then use this port with the app.listen so we can bind the http server assigned to the app variable, to listen to HTTP requests sent to port. ",
+      "line": 72
+    },
+    {
+      "file": "src/models/notes.js",
+      "description": "we are using mongoose so we can use its properies and to be able to connect with mongodb.",
+      "line": 1
+    },
+    {
+      "file": "src/models/notes.js",
+      "description": "When the strict option is set to true, Mongoose will ensure that only the fields that are specified in your schema will be saved in the database, and all other fields will not be saved (if some other fields are sent). But since we have it set as false it means that all the fields will be saved in the database, even if some of them are not specified in the schema model.",
+      "line": 3
+    },
+    {
+      "file": "src/models/notes.js",
+      "description": "we are using the mongodb uri we declared in the .env and setting it as the url",
+      "line": 5
+    },
+    {
+      "file": "src/models/notes.js",
+      "description": "we are then connecting to the url using the connect method. if its successful then we console log that its connected, else if it wasn't successful then it console logs the error.",
+      "line": 9
+    },
+    {
+      "file": "src/models/notes.js",
+      "description": "we declare a note schema by using new mongoose.Schema and setting the values of the object. for this schema we are declaring content:String and important:Boolean.",
+      "line": 17
+    },
+    {
+      "file": "src/models/notes.js",
+      "description": "we are then setting the noteSchema to JSON so that we can format all the objects to JSON. after this we then set the value of returnedObject.id to string to make sure it is a string and then deleted along with __v.",
+      "line": 22
+    },
+    {
+      "file": "src/models/notes.js",
+      "description": "similar to export module, but instead we are only exporting specifically the mongoose model('Notes',noteSchema) so we can use it in index.js",
+      "line": 30
+    }
+  ]
+}
