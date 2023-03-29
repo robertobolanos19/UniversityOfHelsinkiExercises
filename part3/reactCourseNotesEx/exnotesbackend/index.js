@@ -40,6 +40,18 @@ app.get('/api/notes', (request, response) => {
   })
 })
 
+app.get('/api/notes/:id', (request, response, next) => {
+  Note.findById(request.params.id)
+    .then(note => {
+      if (note) {
+        response.json(note)
+      } else {
+        response.status(404).end()
+      }
+    })
+    .catch(error => next(error))
+})
+
 app.post('/api/notes', (request, response) => {
   const body = request.body
 
@@ -57,14 +69,12 @@ app.post('/api/notes', (request, response) => {
   })
 })
 
-app.get('/api/notes/:id', (request, response,next) => {
-  Note.findById(request.params.id)
-    .then(note => {
-      if (note) {
-        response.json(note)
-      } else {
-        response.status(404).end()
-      }
+app.delete('/api/notes/:id', (request, response, next) => {
+  Note.findByIdAndRemove(request.params.id)
+    .then(result => {
+      console.log(result)
+      response.status(204).end()
+      console.log('deleted!')
     })
     .catch(error => next(error))
 })
@@ -80,14 +90,6 @@ app.put('/api/notes/:id', (request, response, next) => {
   Note.findByIdAndUpdate(request.params.id, note, { new: true })
     .then(updatedNote => {
       response.json(updatedNote)
-    })
-    .catch(error => next(error))
-})
-
-app.delete('/api/notes/:id', (request, response, next) => {
-  Note.findByIdAndRemove(request.params.id)
-    .then(result => {
-      response.status(204).end()
     })
     .catch(error => next(error))
 })
