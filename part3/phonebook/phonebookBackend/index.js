@@ -14,14 +14,24 @@ const requestLogger = (request, response, next) => {
     next()
 }
 
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message)
+
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' })
+  } 
+
+  next(error)
+}
+
 const unknownEndpoint = (request, response) => {
-    response.status(404).send({ error: 'unknown endpoint' })
+  response.status(404).send({ error: 'unknown endpoint' })
 }
 
 app.use(cors())
+app.use(express.static('build'))
 app.use(express.json())
 app.use(requestLogger)
-app.use(express.static('build'))
 app.use(morgan('tiny'))
 
 const Contact = require('./models/contacts')
@@ -35,8 +45,12 @@ let contacts=[
 ]
 
 app.get('/api/persons/info', (request, response) => {
+
   const d = new Date()
-  response.send(`<h1>Phone book has info for ${contacts.length} people</h1> <h1>${d}</h1>`)
+
+  Contact.find({}).then(contacts=>{
+    response.send(`<h1>Phone book has info for ${contacts.length} people!</h1> <h1>${d}</h1>`)
+  })
 })
 
 app.get('/api/persons',(request,response)=>{
@@ -45,33 +59,17 @@ app.get('/api/persons',(request,response)=>{
   })
 })
 
-// app.get('/api/persons/:id', (request,response)=>{
-//   const id = Number(request.params.id)
-  
-//   const person = persons.find(p => p.id === id)
-
-//   if(person)
-//   {
-//     response.json(person)
-//   }
-//   else
-//   {
-//     response.status(404).end()
-//   }
-
-// })
-
-// /*generate id will be used for the post*/
-// const generateId = ()=>{
-//   const maxId = persons.length > 0
-//   ?
-//   Math.max(...persons.map(p => p.id))
-//   :
-//   0
-
-//   return maxId + 1
-
-// }
+app.get('/api/persons/:id', (request, response, next) => {
+  Contact.findById(request.params.id)
+    .then(person => {
+      if (person) {
+        response.json(person)
+      } else {
+        response.status(404).end()
+      }
+    })
+    .catch(error => next(error))
+})
 
 //to add a person
 app.post('/api/persons', (request,response)=> {
@@ -79,24 +77,9 @@ app.post('/api/persons', (request,response)=> {
 
   console.log(body)
 
-  // if(!body.name||!body.number)
-  // {
-  //   alert('All fields must be filled')
-  //   return response.status(400).json({
-  //     error:'Content Missing'
-  //   })
-  // }
   if (body.name === undefined || body.number === undefined) {
     return response.status(400).json({ error: 'content missing!' })
   }
-
-  // //
-  // if(persons.find(p => p.number === body.number))
-  // {
-  //   return response.status(400).json({
-  //     error:'number must be unique'
-  //   })
-  // }
 
   const contact = new Contact({
     name: body.name,
@@ -109,15 +92,35 @@ app.post('/api/persons', (request,response)=> {
 
 })
 
-// //to delete
-app.delete('/api/persons/:id', (request, response)=> {
-  const id = Number(request.params.id) 
-  contacts = contacts.filter(c => c.id !== id) 
+app.delete('/api/persons/:id', (request, response, next) => {
+  Contact.findByIdAndRemove(request.params.id)
+    .then(result => {
+      console.log(result)
+      response.status(204).end()
+      console.log('deleted!')
+    })
+    .catch(error => next(error))
+})
 
-  response.status(204).end()
+app.put('/api/persons/:id', (request,response,next)=>{
+  const body = request.body
+
+  const person = {
+    name:body.name,
+    number:body.number,
+  }
+
+  Contact.findByIdAndUpdate(request.params.id, person)
+  .then(updatedPerson=>{
+    response.json(updatedPerson)
+  })
+  .catch(error=>next(error))
+  
 })
 
 app.use(unknownEndpoint)
+//! this has to be the last loaded middleware.
+app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {

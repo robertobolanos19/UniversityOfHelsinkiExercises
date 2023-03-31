@@ -104,6 +104,7 @@ const App = () => {
     window.confirm(`Delete ${person.name}?`)
     &&personServices.deletePerson(person.id)
     .then(response=>{
+      setPersons(persons.filter(p=> p.id !== person.id))
       setNotification(`${person.nam} has just been deleted!`)
       setNotificationType(null)
       setTimeout(()=>{
