@@ -98,6 +98,14 @@ const App = () => {
           setNotification(null)
         },5000)
       })
+      .catch(error=>{
+        setNotificationType('error')
+        setNotification((error.response.data.error))
+        setTimeout(()=>{
+          setNotification(null)
+        },10000)
+        //console.log((error.response.data.error));
+      })
   }
 
   const handleDeleteContact = (person)=>{

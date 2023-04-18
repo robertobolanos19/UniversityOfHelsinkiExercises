@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "lint": "eslint .",
     "build:ui": "rm -rf build && cd ../exnotesfrontend/ && npm run build && cp -r build ../exnotesbackend",
     "deploy": "fly deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
@@ -19,6 +20,8 @@
     "mongoose": "^6.10.3"
   },
   "devDependencies": {
+    "eslint": "^8.38.0",
+    "lint": "^0.8.19",
     "nodemon": "^2.0.21"
   },
   "description": ""

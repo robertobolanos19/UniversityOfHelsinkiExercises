@@ -14,8 +14,28 @@ mongoose.connect(url)
 })
 
 const contactSchema = new mongoose.Schema({
-    name:String,
-    number:Number,
+    name:{
+      type:String,
+      minLength:3,
+      maxLength:15,
+      required:true
+    },
+    number:{
+      type:String,
+      minlength:9,
+      validate:{
+        validator: function(v) {
+          if(v.length === 11){
+            return /\d{3}-\d{8}/.test(v);
+          }
+          else if(v.length === 9){
+            return /\d{2}-\d{7}/.test(v);
+          }
+        },
+        message:props => `${props.value} is not a valid phone number! Please make sure to add a dash! examples: 09-1234556 and 040-22334455 are valid phone numbers`
+      },     
+      required:[true, 'User phone number required']
+    }
 })
 
 contactSchema.set('toJSON', {
