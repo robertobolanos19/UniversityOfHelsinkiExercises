@@ -27,8 +27,7 @@ const App = () => {
       important: Math.random() > 0.5,
     }
 
-    noteService
-      .create(noteObject)
+    noteService.create(noteObject)
       .then(returnedNote => {
         setNotes(notes.concat(returnedNote))
         setNewNote('')
@@ -36,6 +35,13 @@ const App = () => {
         setTimeout(()=>{
           setNotification(null)
         },5000)
+      })
+      .catch(error=>{
+        setNotificationType('error')
+        setNotification((error.response.data.error))
+        setTimeout(()=>{
+          setNotification(null)
+        },10000)
       })
   }
 
