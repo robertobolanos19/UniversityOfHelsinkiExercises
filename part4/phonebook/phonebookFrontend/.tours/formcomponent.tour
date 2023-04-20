@@ -1,0 +1,11 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "FormComponent",
+  "steps": [
+    {
+      "file": "src/components/Form.js",
+      "description": "the six parameters main parameters: handleSubmit, newName, handleNameInput, handleNumInput, newPhoneNumber, inputRef.\nfirst, when the form is submitted the handleSubmit function is executed, then both inputs save separate values: newName and newPhoneNumber, if the inputs are changed then their respective functions are triggered.",
+      "line": 1
+    }
+  ]
+}

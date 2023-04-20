@@ -1,0 +1,11 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "FIlterComponent",
+  "steps": [
+    {
+      "file": "src/components/Filter.js",
+      "description": "1) the two parameters main parameters are handleFilter and value\n2) the input has 3 main props called type, onChange and value   \n    type changes all values in input to text, onChange will be executed when the inputField is changed\n    and value is from the inputField.\n3) from the parameters onChange will be looking",
+      "line": 1
+    }
+  ]
+}
