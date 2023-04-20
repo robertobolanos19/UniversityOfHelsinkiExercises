@@ -1,5 +1,0 @@
-node_modules
-fly.toml
-Dockerfile
-build/
-.env
