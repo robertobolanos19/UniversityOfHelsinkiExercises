@@ -31,6 +31,7 @@ const App = () => {
       .then(returnedNote => {
         setNotes(notes.concat(returnedNote))
         setNewNote('')
+        setNotificationType('success')
         setNotification('A new note has been added!')
         setTimeout(()=>{
           setNotification(null)
