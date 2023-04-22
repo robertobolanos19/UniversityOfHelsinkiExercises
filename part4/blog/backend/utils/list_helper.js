@@ -11,17 +11,20 @@ const totalLikes = (blog) =>
         return a+b
     })
 
-    logger.info(result)
+    //logger.info(result)
     return result
 }
 
 const favoriteBlog = (blog) => 
 {
-    
+    const blogs = blog.map(blog => blog.likes)
+    //logger.info(Math.max(...blogs))
+    return Math.max(...blogs)
 }
 
 module.exports = 
 {
     dummy,
-    totalLikes
+    totalLikes,
+    favoriteBlog
 }
