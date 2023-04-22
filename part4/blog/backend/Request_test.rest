@@ -6,13 +6,8 @@ POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
-<<<<<<< HEAD
-    "title": "first2",
-    "author": "berry",
-=======
-    "title": "first1",
-    "author": "mary",
->>>>>>> 285d368b6e6fce0e6b753e1afb7510a069af6053
+    "title": "first3",
+    "author": "gary",
     "url": "https://www.google.com/",
     "likes": 1
 }
