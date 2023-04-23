@@ -1,4 +1,13 @@
 const listHelper = require('../utils/list_helper')
+const logger = require('../utils/logger')
+
+const mongoose = require('mongoose')
+const supertest = require('supertest')
+const app = require('../app')
+
+const api = supertest(app)
+
+
 
 test('dummy returns one', () => {
   const blogs = []
@@ -124,3 +133,11 @@ describe('favorite blog', () => {
     expect(result).toBe(32)
   })
 })
+
+test('testing api get request', async ()=>{
+  const response = await api.get('/api/blogs')
+
+  logger.info(response.body)
+
+  expect(response.body).toHaveLength(3)
+},100000)
