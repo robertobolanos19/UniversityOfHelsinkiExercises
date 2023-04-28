@@ -1,4 +1,7 @@
 const logger = require('./logger')
+
+const Blog = require('../models/blog')
+
 const dummy = (blogs) =>
 {
     return 1
@@ -22,9 +25,31 @@ const favoriteBlog = (blog) =>
     return Math.max(...blogs)
 }
 
+const blogInDb = async () => {
+    const blogs = await Blog.find({})
+    return blogs.map(blog => blog.toJSON())
+}
+
+const initialBlogs = [
+    {
+        title:'testTitle',
+        author:'testAuthor',
+        url:'testUrl4',
+        likes:3
+    },
+    {
+        title:'testTitle2',
+        author:'testAuthor2',
+        url:'testUrl2',
+        likes:3
+    }
+]
+
 module.exports = 
 {
     dummy,
     totalLikes,
-    favoriteBlog
+    favoriteBlog,
+    blogInDb,
+    initialBlogs
 }

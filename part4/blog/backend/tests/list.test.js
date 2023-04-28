@@ -141,3 +141,46 @@ test('testing api get request', async ()=>{
 
   expect(response.body).toHaveLength(3)
 },100000)
+
+test('verifying unique identifier is named id', async () => {
+  const response = await api.get('/api/blogs')
+  
+  const blogs = response.body.map(blog => blog)
+
+  for(let i = 0, len = blogs.length; i < len; i++)
+  {
+    logger.info(blogs[i].id)
+    expect(blogs[i].id).toBeDefined()
+  }
+
+  // expect(response.body)
+})
+
+test('testing post request', async ()=>{
+  const baseBlogs = await api.get('/api/blogs')
+
+  const initialBlogsLength = baseBlogs.body.length
+
+  const blog = {
+    title:'testTitle3',
+    author:'testAuthor3',
+    url:'testUrl3',
+    likes:3
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(blog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)  
+  
+  const blogsPostAdd = await api.get('/api/blogs')
+
+  logger.info(baseBlogs.body.length)
+  logger.info(blogsPostAdd.body.length)
+
+  expect(blogsPostAdd.body).toHaveLength(initialBlogsLength + 1)
+
+})
+
+
