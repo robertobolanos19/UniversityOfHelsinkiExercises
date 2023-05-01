@@ -142,6 +142,12 @@ test('testing api get request', async ()=>{
   expect(response.body).toHaveLength(3)
 },100000)
 
+test('testing get request', async ()=> {
+  const baseBlogs = await api.get('/api/blogs')
+  logger.info(baseBlogs.body)
+  expect(baseBlogs.body)
+})
+
 test('verifying unique identifier is named id', async () => {
   const response = await api.get('/api/blogs')
   
@@ -162,9 +168,9 @@ test('testing post request', async ()=>{
   const initialBlogsLength = baseBlogs.body.length
 
   const blog = {
-    title:'testTitle3',
-    author:'testAuthor3',
-    url:'testUrl3',
+    title:'testTitle2',
+    author:'testAuthor2',
+    url:'testUrl2',
     likes:3
   }
 
