@@ -189,4 +189,28 @@ test('testing post request', async ()=>{
 
 })
 
+test('testing if missing likes', async()=>{
+
+  const blog = {
+    title:'testingLikes1',
+    author:'testingLikes1',
+    url:'testingLikes1'
+  }
+
+  if(blog.likes === undefined)
+  {
+    blog.likes = 0
+    expect(logger.info(blog))
+  }
+
+  await api
+  .post('/api/blogs')
+  .send(blog)
+  .expect(201)
+  .expect('Content-Type', /application\/json/)  
+
+  const blogs = await api.get('/api/blogs')
+
+  expect(logger.info(blogs.body))
+})
 
