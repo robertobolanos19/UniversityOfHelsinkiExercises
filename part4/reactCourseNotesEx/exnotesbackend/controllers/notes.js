@@ -2,11 +2,16 @@
 
 
 //? So what are these router objects exactly? The Express manual provides the following explanation:
-//? A router object is an isolated instance of middleware and routes. You can think of it as a “mini-application,” capable only of performing middleware and routing functions. Every Express application has a built-in app router.
-//? The router is in fact a middleware, that can be used for defining "related routes" in a single place, which is typically placed in its own module.
+//? A router object is an isolated instance of middleware and routes. You can think of it as a “mini-application,”
+//? capable only of performing middleware and routing functions. Every Express application has a built-in app router.
+//? The router is in fact a middleware, that can be used for defining "related routes" in a single place, which is typically
+//? placed in its own module.
 
 const notesRouter = require('express').Router()
 const Note = require('../models/note')
+
+//?Why dont we need to add '/api/notes'?
+//*In app.js we declared noteRouter and get it the point '/api/notes' so we can use noteRouter which has '/api/notes' being used by app
 
 notesRouter.get('/', async (request, response) => {
   const notes = await Note.find({})
@@ -39,7 +44,7 @@ notesRouter.delete('/:id', async (request, response) => {
   response.status(204).end()
 })
 
-notesRouter.put('/api/notes/:id', (request, response, next) => {
+notesRouter.put('/:id', (request, response, next) => {
   const { content,important } = request.body
 
   Note.findByIdAndUpdate(

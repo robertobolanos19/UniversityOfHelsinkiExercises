@@ -1,5 +1,6 @@
 const Note = require('../models/note')
-//initialNotes array containing the initial database state
+
+//initialNotes array containing the initial local database state
 const initialNotes = [
   {
     content: 'HTML is easy',
@@ -8,6 +9,10 @@ const initialNotes = [
   {
     content: 'Browser can execute only JavaScript',
     important: true
+  },
+  {
+    content: 'JavaScript',
+    important: false
   }
 ]
 
