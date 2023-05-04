@@ -98,6 +98,30 @@ describe('testing api requests', () => {
     expect(blogsAfterDeletion.body).toHaveLength(initialBlogsLength - 1)
   })
 
+  test('testing update', async() => {
+
+    const blogsList = await api.get('/api/blogs')
+    const blogToUpdate = blogsList.body[0]
+
+    const blog =
+    {
+      title:'Testing update',
+      author:'Testing update',
+      url:'Testing update',
+      likes:1
+    }
+
+    await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send(blog)
+      .expect(200)
+
+    const blogsAfterUpdate = await api.get('/api/blogs')
+    expect(logger.info(blogsAfterUpdate.body[0].title))
+    expect(blogsAfterUpdate.body[0].title)
+      .toContain('Testing update')
+  })
+
 })
 
 describe('testing api reactions to values', () => {
