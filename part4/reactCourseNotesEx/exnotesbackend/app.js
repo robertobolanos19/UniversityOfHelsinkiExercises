@@ -2,13 +2,13 @@
 
 const config = require('./utils/config') //to get access to our port and mongo_uri
 const express = require('express')
+require('express-async-errors') //to eliminate the catch from the methods
 const app = express()
 const cors = require('cors')
 const notesRouter = require('./controllers/notes') // to use as a middleware for our routing functions
 const middleware = require('./utils/middleware') // to get access to our middleware like unknownendpoint etc
 const logger = require('./utils/logger') // to log our input in terminal during testing
 const mongoose = require('mongoose')
-require('express-async-errors') //to eliminate the catch from the methods
 
 mongoose.set('strictQuery', false)
 
