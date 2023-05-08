@@ -1,9 +1,12 @@
+const bcrypt = require('bcrypt')
 const supertest = require('supertest')
 const mongoose = require('mongoose')
+
 const helper = require('./test_helper')
 const app = require('../app')
 const api = supertest(app)
-
+const logger = require('../utils/logger')
+const User = require('../models/user')
 const Note = require('../models/note')
 
 beforeEach(async () => {
@@ -123,6 +126,66 @@ describe('deletion of a note', () => {
     const contents = notesAtEnd.map(r => r.content)
 
     expect(contents).not.toContain(noteToDelete.content)
+  })
+})
+
+//*user tests
+
+describe('testing user tests', () => {
+  beforeEach(async () => {
+    //*in Users dat we are deleting any data that may exist
+    await User.deleteMany({})
+    //*needed for a secret test dummy password
+    const passwordHash = await bcrypt.hash('secret',10)
+    //*creating a dummy user and sending it to the model
+    const user = new User({ username:'initalUser', passwordHash })
+    //*the created dummy use is now being save into db
+    await user.save()
+  })
+
+  test('creation succeeds with a fresh username', async () => {
+    const usersAtStart = await helper.usersInDb()
+    logger.info(usersAtStart.length)
+    const newUser = {
+      username:'newUser',
+      name:'testNewuser',
+      password:'password1'
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+
+    const usersAtEnd = await helper.usersInDb()
+    logger.info(usersAtEnd.length)
+    expect(usersAtEnd).toHaveLength(usersAtStart.length + 1)
+
+    const usernames = usersAtEnd.map(u => u.username)
+    expect(usernames).toContain(newUser.username)
+  })
+
+  test('creation fails with proper statuscode and message if username already exists', async () => {
+    const usersAtStart = await helper.usersInDb()
+
+    const newUser =
+    {
+      username:'initalUser',
+      name:'testing1',
+      password:'test1'
+    }
+
+    const result = await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+
+    expect(result.body.error).toContain('expect `username` to be unique')
+
+    const usersAtEnd = await helper.usersInDb()
+    expect(usersAtEnd).toEqual(usersAtStart)
   })
 })
 

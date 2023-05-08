@@ -6,6 +6,7 @@ require('express-async-errors') //to eliminate the catch from the methods
 const app = express()
 const cors = require('cors')
 const notesRouter = require('./controllers/notes') // to use as a middleware for our routing functions
+const userRouter = require('./controllers/users')
 const middleware = require('./utils/middleware') // to get access to our middleware like unknownendpoint etc
 const logger = require('./utils/logger') // to log our input in terminal during testing
 const mongoose = require('mongoose')
@@ -28,6 +29,8 @@ app.use(express.json())
 app.use(middleware.requestLogger)
 
 app.use('/api/notes', notesRouter) //basically instead of having our routers with app we use notesRouter in place with app
+
+app.use('/api/users', userRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
