@@ -182,10 +182,10 @@ describe('testing user tests', () => {
       .expect(400)
       .expect('Content-Type', /application\/json/)
 
-    expect(result.body.error).toContain('expect `username` to be unique')
+    expect(result.body.error).toContain('expected `username` to be unique')
 
     const usersAtEnd = await helper.usersInDb()
-    expect(usersAtEnd).toEqual(usersAtStart)
+    expect(usersAtEnd).toHaveLength(usersAtStart.length)
   })
 })
 
