@@ -16,7 +16,7 @@ const logger = require('../utils/logger')
 //*In app.js we declared noteRouter and get it the point '/api/notes' so we can use noteRouter which has '/api/notes' being used by app
 
 notesRouter.get('/', async (request, response) => {
-  const notes = await Note.find({})
+  const notes = await Note.find({}).populate('user', { username:1, name:1 })
   response.json(notes)
 })
 
