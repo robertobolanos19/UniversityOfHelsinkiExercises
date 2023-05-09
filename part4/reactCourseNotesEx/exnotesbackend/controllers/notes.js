@@ -9,6 +9,8 @@
 
 const notesRouter = require('express').Router()
 const Note = require('../models/note')
+const User = require('../models/user')
+const logger = require('../utils/logger')
 
 //?Why dont we need to add '/api/notes'?
 //*In app.js we declared noteRouter and get it the point '/api/notes' so we can use noteRouter which has '/api/notes' being used by app
@@ -20,14 +22,21 @@ notesRouter.get('/', async (request, response) => {
 
 notesRouter.post('/', async (request, response) => {
   const body = request.body
+  logger.info(body.userId)
+  const user = await User.findById(body.userId)
 
   const note = new Note({
     content: body.content,
-    important: body.important || false,
+    important: body.important === undefined ? false : body.important,
+    user: user.id
   })
 
   const savedNote = await note.save()
-  response.status(201).json(savedNote)
+
+  user.notes = user.notes.concat(savedNote._id)
+  await user.save()
+
+  response.json(savedNote)
 })
 
 notesRouter.get('/:id', async (request, response) => {

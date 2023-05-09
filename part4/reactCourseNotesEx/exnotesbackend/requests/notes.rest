@@ -1,0 +1,16 @@
+##below are requests to notes
+##GET http://localhost:3001/api/notes
+##POST http://localhost:3001/api/notes
+
+##below are requests to users
+
+GET http://localhost:3001/api/notes
+###
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+
+{
+    "content":"test note user 2",
+    "important":true,
+    "userId":"645a8fd6e2bdafddd7aa488b"
+}
