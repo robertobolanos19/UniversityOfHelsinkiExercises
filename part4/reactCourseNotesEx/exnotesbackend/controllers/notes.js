@@ -10,7 +10,8 @@
 const notesRouter = require('express').Router()
 const Note = require('../models/note')
 const User = require('../models/user')
-const logger = require('../utils/logger')
+const jwt = require('jsonwebtoken')
+// const logger = require('../utils/logger')
 
 //?Why dont we need to add '/api/notes'?
 //*In app.js we declared noteRouter and get it the point '/api/notes' so we can use noteRouter which has '/api/notes' being used by app
@@ -20,10 +21,27 @@ notesRouter.get('/', async (request, response) => {
   response.json(notes)
 })
 
+const getTokenFrom = request => {
+  const authorization = request.get('authorization')
+
+  if(authorization && authorization.startsWith('Bearer'))
+  {
+    return authorization.replace('Bearer ', '')
+  }
+  return null
+}
+
 notesRouter.post('/', async (request, response) => {
   const body = request.body
-  logger.info(body.userId)
-  const user = await User.findById(body.userId)
+
+  const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+
+  if(!decodedToken.id)
+  {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+
+  const user = await User.findById(decodedToken.id)
 
   const note = new Note({
     content: body.content,
