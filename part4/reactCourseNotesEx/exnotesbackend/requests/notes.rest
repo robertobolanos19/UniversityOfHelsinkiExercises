@@ -8,11 +8,12 @@ GET http://localhost:3001/api/notes
 ###
 POST http://localhost:3001/api/notes
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RQb3N0MyIsImlkIjoiNjQ1ZTg1OGQ1ZmVkNWE5MDljNWQwYzI1IiwiaWF0IjoxNjgzOTE2ODM5fQ.M7LoJt25dZeyuVojB79DOQTZB_s-QSq7r0ADUGMv8V0
+
 
 {
-    "content":"test note user 2",
-    "important":true,
-    "userId":"645a8fd6e2bdafddd7aa488b"
+    "content":"testing new note logged in 2",
+    "important":true
 }
 
 ###
@@ -20,6 +21,6 @@ POST http://localhost:3001/api/login
 Content-Type: application/json
 
 {
-    "username":"testPost2",
-    "password":"password2"
+    "username":"testPost3",
+    "password":"password3"
 }
