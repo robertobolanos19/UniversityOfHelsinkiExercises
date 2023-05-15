@@ -7,7 +7,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzZXJuYW1lNCIsImlkIjoiNjQ2MjZkOTMyMzE2YWIwZjNkODZhZTkwIiwiaWF0IjoxNjg0MTcyNzM1LCJleHAiOjE2ODQxNzYzMzV9.1uL_BQ6E_zZZhVXHELEYQ8iyw-V0YBQkWj8Yuueu1UY
 
 {
-    "title": "testing a note post after login 1",
+    "title": "testing a note post after login 2",
     "author": "login 1",
     "url": "https://www.google.com/",
     "likes": 2
