@@ -8,12 +8,16 @@ const app = require('../app')
 const api = supertest(app)
 
 const Blog = require('../models/blog')
+const User = require('../models/user')
 
 //*we will make it so that from now we will be using local data and if there is any db data we wipe out and
 //*replace it with our local data
 beforeEach(async () => {
   await Blog.deleteMany({})
   await Blog.insertMany(listHelper.initialBlogs)
+
+  await User.deleteMany({})
+
 })
 
 //!not an important test
@@ -58,11 +62,14 @@ describe('testing api requests', () => {
     //*declaring a var of initialBlogsLength based on blogsAtStars body length
     const initialBlogsLength = baseBlogs.body.length
     //*creating a dummy blog to do the test
+    //!userId is based on a user from our db, if it doesn't work
+    //!then it means that the user doesn't exist
     const blog = {
       title:'testTitle3',
       author:'testAuthor3',
       url:'testUrl3',
-      likes:3
+      likes:3,
+      userId:'646250cc10edd7b26418f74b'
     }
 
     /*below we are waiting for the api to send a post request and expecting a 201 (it was successful)
@@ -142,10 +149,13 @@ describe('testing api reactions to values', () => {
 
   test('testing if missing likes', async() => {
     //*declaring a dummy data
+    //!userId is based on a user from our db, if it doesn't work
+    //!then it means that the user doesn't exist
     const blog = {
-      title:'testingLikes1',
-      author:'testingLikes1',
-      url:'testingLikes1'
+      title:'testTitle3',
+      author:'testAuthor3',
+      url:'testUrl3',
+      userId:'646250cc10edd7b26418f74b'
     }
     //*if the blog.likes is undefined we are adding a value of likes to blog and giving the value of likes 1
     if(blog.likes === undefined)
@@ -170,9 +180,9 @@ describe('testing api reactions to values', () => {
   })
 
   test('testing post without required values', async() => {
-    const blog =
-    {
-      author:'Merry'
+    const blog = {
+      title:'testTitle3',
+      userId:'646250cc10edd7b26418f74b'
     }
 
     await api
@@ -183,6 +193,36 @@ describe('testing api reactions to values', () => {
     // const updatedBlogsList = await listHelper.blogInDb()
 
     // expect(updatedBlogsList).toHaveLength(listHelper.initialBlogs.length)
+  })
+
+})
+
+describe('testing users requests', () => {
+
+  test('testing user creation', async () => {
+    const user = {
+      username:'testing1',
+      name:'test1',
+      password:'pass1'
+    }
+
+    await api
+      .post('/api/users')
+      .send(user)
+      .expect(201)
+  })
+
+  test('testing invalid user creation', async () => {
+    const user = {
+      username:'12',
+      name:'test',
+      password:'pass'
+    }
+
+    await api
+      .post('/api/users')
+      .send(user)
+      .expect(400)
   })
 
 })

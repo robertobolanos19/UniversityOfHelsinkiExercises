@@ -76,6 +76,19 @@ const initialBlogs = [
   },
 ]
 
+const initialUsers = [
+  {
+    username: 'username1',
+    name:'name1',
+    password:'pass1'
+  },
+  {
+    username: 'username2',
+    name:'name2',
+    password:'pass2'
+  }
+]
+
 module.exports =
 {
   dummy,
@@ -83,6 +96,7 @@ module.exports =
   favoriteBlog,
   blogInDb,
   initialBlogs,
+  initialUsers,
   loopThroughBlogsId,
   loopThroughBlogsLikes
 }
