@@ -1,0 +1,14 @@
+###GET TEST
+GET http://localhost:3001/api/blogs
+
+###POST TEST
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+
+{
+    "title": "testing a note post after login 1",
+    "author": "login 1",
+    "url": "https://www.google.com/",
+    "likes": 2,
+    "userId":"6461aaad250aee7302a7e844"
+}

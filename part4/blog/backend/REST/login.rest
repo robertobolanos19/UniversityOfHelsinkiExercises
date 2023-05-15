@@ -1,0 +1,7 @@
+post http://localhost:3001/api/blogs/ogin
+Content-Type: application/json
+
+{
+    "username": "login test 1",
+    "password": "login test 1"
+}
