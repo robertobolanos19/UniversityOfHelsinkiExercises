@@ -27,8 +27,26 @@ const errorHandler = (error, request, response, next) => {
   next(error)
 }
 
+const tokenHandler = (request,response,next) => {
+
+  const authorization = request.get('authorization')
+
+  if(!authorization|| !authorization.startsWith('Bearer '))
+  {
+    return response.status(401).json({ error:'token is missing' })
+  }
+
+  let token = authorization.slice(7)
+
+  request.token = token
+
+  next()
+
+}
+
 module.exports = {
   requestLogger,
   unknownEndpoint,
-  errorHandler
+  errorHandler,
+  tokenHandler
 }

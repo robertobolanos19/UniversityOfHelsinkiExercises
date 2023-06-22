@@ -61,19 +61,7 @@ const initialBlogs = [
     author:'testAuthor3',
     url:'testUrl3',
     likes:5
-  },
-  {
-    title:'testTitle4',
-    author:'testAuthor4',
-    url:'testUrl4',
-    likes:1
-  },
-  {
-    title:'testTitle5',
-    author:'testAuthor5',
-    url:'testUrl5',
-    likes:0
-  },
+  }
 ]
 
 const initialUsers = [

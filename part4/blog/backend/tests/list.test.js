@@ -17,6 +17,7 @@ beforeEach(async () => {
   await Blog.insertMany(listHelper.initialBlogs)
 
   await User.deleteMany({})
+  await User.insertMany(listHelper.initialUsers)
 
 })
 
@@ -48,15 +49,17 @@ describe('testing blog values', () => {
 })
 
 //*Working
-describe('testing api requests', () => {
+describe('testing blog api requests', () => {
 
-  test('testing api get request', async () => {
+  test('testing blog api get request', async () => {
     //*getting the data in the api
     const blogsList = await api.get('/api/blogs')
-    expect(blogsList.body).toHaveLength(5)
+    expect(blogsList.body).toHaveLength(3)
+      .expect(200)
+    logger.info(blogsList.body)
   })
 
-  test('testing post request', async () => {
+  test('testing blog post request', async () => {
     //*getting the data in the api
     const baseBlogs = await api.get('/api/blogs')
     //*declaring a var of initialBlogsLength based on blogsAtStars body length
@@ -86,7 +89,7 @@ describe('testing api requests', () => {
     expect(blogsPostAdd.body).toHaveLength(initialBlogsLength + 1)
   })
 
-  test('testing deletion', async() => {
+  test('testing blog deletion request', async() => {
     //*getting the data in the api
     const blogsAtStart = await api.get('/api/blogs')
     //*declaring a var of initialBlogsLength based on blogsAtStars body length
@@ -105,7 +108,7 @@ describe('testing api requests', () => {
     expect(blogsAfterDeletion.body).toHaveLength(initialBlogsLength - 1)
   })
 
-  test('testing update', async() => {
+  test('testing blog update request', async() => {
 
     const blogsList = await api.get('/api/blogs')
     const blogToUpdate = blogsList.body[0]
@@ -129,6 +132,46 @@ describe('testing api requests', () => {
       .toContain('Testing update')
   })
 
+})
+
+describe('testing users requests', () => {
+
+  test('testing user get request', async () => {
+    const userList = await api.get('/api/users')
+      .expect(200)
+    logger.info(userList.body)
+  })
+
+  test('testing user post request', async () => {
+    const user = {
+      username:'testing1',
+      name:'test1',
+      password:'pass1'
+    }
+
+    await api
+      .post('/api/users')
+      .send(user)
+      .expect(201)
+  })
+
+  test('testing invalid user creation', async () => {
+    const user = {
+      username:'12',
+      name:'test',
+      password:'pass'
+    }
+
+    await api
+      .post('/api/users')
+      .send(user)
+      .expect(400)
+  })
+
+})
+
+afterAll(async () => {
+  await mongoose.connection.close()
 })
 
 describe('testing api reactions to values', () => {
@@ -195,38 +238,4 @@ describe('testing api reactions to values', () => {
     // expect(updatedBlogsList).toHaveLength(listHelper.initialBlogs.length)
   })
 
-})
-
-describe('testing users requests', () => {
-
-  test('testing user creation', async () => {
-    const user = {
-      username:'testing1',
-      name:'test1',
-      password:'pass1'
-    }
-
-    await api
-      .post('/api/users')
-      .send(user)
-      .expect(201)
-  })
-
-  test('testing invalid user creation', async () => {
-    const user = {
-      username:'12',
-      name:'test',
-      password:'pass'
-    }
-
-    await api
-      .post('/api/users')
-      .send(user)
-      .expect(400)
-  })
-
-})
-
-afterAll(async () => {
-  await mongoose.connection.close()
 })
