@@ -24,6 +24,7 @@ blogRouter.post('/', middleware.tokenHandler, async (request,response) => {
   }
 
   const user = await User.findById(decodedToken.id)
+  console.log(user)
 
   const blog = new Blog({
     title:body.title,
@@ -41,10 +42,25 @@ blogRouter.post('/', middleware.tokenHandler, async (request,response) => {
 
 })
 
-blogRouter.delete('/:id', async(request,response) => {
+// blogRouter.delete('/:id', async(request,response) => {
+//   await Blog.findByIdAndDelete(request.params.id)
+//   response.status(204).end()
+// })
+
+blogRouter.delete('/:id', middleware.tokenHandler, async (request,response) => {
+
+  const decodedToken = jwt.verify(request.token,process.env.SECRET)
+
+  if(!decodedToken.id)
+  {
+    return response.status(401).json({ error:'token invalid' })
+  }
+
   await Blog.findByIdAndDelete(request.params.id)
   response.status(204).end()
+
 })
+
 
 blogRouter.put('/:id', async(request,response) => {
   const body = request.body

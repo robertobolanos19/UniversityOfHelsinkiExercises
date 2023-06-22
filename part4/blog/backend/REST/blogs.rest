@@ -4,11 +4,15 @@ GET http://localhost:3001/api/blogs
 ###POST TEST
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzZXJuYW1lMyIsImlkIjoiNjQ5NDdhM2ZlNTgxYjMwYzY4ZDVmYzliIiwiaWF0IjoxNjg3NDUyOTYxLCJleHAiOjE2ODc0NTY1NjF9.dcDoGdT1DmO4uN5OAQlx27zaNxFBZIgKNW6KsBXkun4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzZXJuYW1lNCIsImlkIjoiNjQ5NDg0MGRhZmVlYjA4YWEwYmE0MjJkIiwiaWF0IjoxNjg3NDU0NzQ5LCJleHAiOjE2ODc0NTgzNDl9.9av0O69RkXZXbEKvdgGs9LK-FlLqxf_eEB85hxKMR2I
 
 {
-    "title": "testing a note post after login 2",
+    "title": "testing a note post after login 1",
     "author": "login 1",
     "url": "https://www.google.com/",
     "likes": 2
 }
+###DELETE TEST
+DELETE  http://localhost:3001/api/blogs/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlVzZXJuYW1lMyIsImlkIjoiNjQ5NDdhM2ZlNTgxYjMwYzY4ZDVmYzliIiwiaWF0IjoxNjg3NDUyOTYxLCJleHAiOjE2ODc0NTY1NjF9.dcDoGdT1DmO4uN5OAQlx27zaNxFBZIgKNW6KsBXkun4

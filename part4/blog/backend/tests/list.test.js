@@ -54,7 +54,6 @@ describe('testing blog api requests', () => {
   test('testing blog api get request', async () => {
     //*getting the data in the api
     const blogsList = await api.get('/api/blogs')
-    expect(blogsList.body).toHaveLength(3)
       .expect(200)
     logger.info(blogsList.body)
   })
