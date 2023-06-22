@@ -44,6 +44,10 @@ const tokenHandler = (request,response,next) => {
 
 }
 
+// const userFinderHandler = (request,response,next) => {
+
+// }
+
 module.exports = {
   requestLogger,
   unknownEndpoint,

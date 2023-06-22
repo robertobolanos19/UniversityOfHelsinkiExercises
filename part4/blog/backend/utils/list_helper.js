@@ -43,39 +43,9 @@ const loopThroughBlogsLikes = (blogs) =>
   return result
 }
 
-const initialBlogs = [
-  {
-    title:'testTitle',
-    author:'testAuthor',
-    url:'testUrl1',
-    likes:3
-  },
-  {
-    title:'testTitle2',
-    author:'testAuthor2',
-    url:'testUrl2',
-    likes:1
-  },
-  {
-    title:'testTitle3',
-    author:'testAuthor3',
-    url:'testUrl3',
-    likes:5
-  }
-]
+const initialBlogs = []
 
-const initialUsers = [
-  {
-    username: 'username1',
-    name:'name1',
-    password:'pass1'
-  },
-  {
-    username: 'username2',
-    name:'name2',
-    password:'pass2'
-  }
-]
+const initialUsers = []
 
 module.exports =
 {

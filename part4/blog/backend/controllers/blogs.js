@@ -56,7 +56,24 @@ blogRouter.delete('/:id', middleware.tokenHandler, async (request,response) => {
     return response.status(401).json({ error:'token invalid' })
   }
 
-  await Blog.findByIdAndDelete(request.params.id)
+  const userid = await User.findById(decodedToken.id)
+  //console.log(userid._id.toString())
+
+
+  const blog = await Blog.findById(request.params.id)
+  //console.log(blog.user._id.toString())
+
+  if ( blog.user._id.toString() !== userid.id.toString())
+  {
+    return response.status(401).json({ error: 'only the creator can delete this' })
+  }
+
+  userid.blogs = userid.blogs.filter(b => b === request.params.id)
+
+  await userid.save()
+
+  await Blog.findByIdAndRemove(request.params.id)
+
   response.status(204).end()
 
 })
