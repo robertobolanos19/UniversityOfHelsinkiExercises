@@ -12,7 +12,7 @@ blogRouter.get('/', async (request, response) => {
   response.json(blogs)
 })
 
-blogRouter.post('/', middleware.tokenHandler, middleware.userFinderHandler, async (request,response) => {
+blogRouter.post('/', middleware.userExtractor, async (request,response) => {
   const body = request.body
 
   const user = await User.findById(request.user)
@@ -35,7 +35,7 @@ blogRouter.post('/', middleware.tokenHandler, middleware.userFinderHandler, asyn
 
 })
 
-blogRouter.delete('/:id',  middleware.tokenHandler, middleware.userFinderHandler, async (request,response) => {
+blogRouter.delete('/:id',  middleware.userExtractor, async (request,response) => {
 
   const userid = await User.findById(request.user)
   //console.log(userid._id.toString())
