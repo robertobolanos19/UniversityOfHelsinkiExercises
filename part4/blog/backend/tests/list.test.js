@@ -1,5 +1,4 @@
 const listHelper = require('../utils/list_helper')
-const logger = require('../utils/logger')
 
 const mongoose = require('mongoose')
 const supertest = require('supertest')
@@ -21,9 +20,9 @@ beforeEach(async () => {
 
 })
 
-describe('testing successful user related requests', () => {
+describe('testing user related requests', () => {
 
-  test('api user GET request', async () => {
+  test('testing successful api user GET request', async () => {
     const usersList = await api.get('/api/users')
 
       .expect(200)
@@ -31,7 +30,7 @@ describe('testing successful user related requests', () => {
     console.log(usersList.body)
   })
 
-  test('api new user POST request', async () => {
+  test('testing successful api new user POST request', async () => {
     const newUser = {
       username:'test1',
       name:'test1',
@@ -45,7 +44,7 @@ describe('testing successful user related requests', () => {
       .expect('Content-Type', /application\/json/)
   })
 
-  test('api login user POST request', async () => {
+  test('testing successful api login user POST request', async () => {
     const newUser = {
       username:'test1',
       name:'test1',
@@ -71,7 +70,7 @@ describe('testing successful user related requests', () => {
 
   //!TESTING BAD REQUESTS
 
-  test('bad api new user POST request', async () => {
+  test('testing bad api new user POST request', async () => {
 
     const newUser = {
       username:'b',
@@ -86,7 +85,7 @@ describe('testing successful user related requests', () => {
       .expect('Content-Type', /application\/json/)
   })
 
-  test('bad api user login POST request', async () => {
+  test('testing bad api user login POST request', async () => {
     const newUser = {
       username:'test1',
       name:'test1',
@@ -109,6 +108,58 @@ describe('testing successful user related requests', () => {
       .expect(401)
       .expect('Content-Type', /application\/json/)
   })
+
+})
+
+describe('testing blog api requests', () => {
+
+  test('testing successful api blog GET request', async () => {
+    const blogList = await api.get('/api/blogs')
+      .expect(200)
+
+    console.log(blogList.body)
+  })
+
+  test('testing successful api blog POST request', async () => {
+
+    const newUser = {
+      username:'test1',
+      name:'test1',
+      password:'test1'
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+
+    const loginInfo = {
+      username: 'test1',
+      password: 'test1'
+    }
+
+    const result = await api
+      .post('/api/login')
+      .send(loginInfo)
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+
+    const blogPost = {
+      title: 'testing a note post after login 1',
+      author: 'login 1',
+      url: 'https://www.google.com/',
+      likes: 2
+    }
+
+    await api
+      .post('/api/blogs')
+      .send(blogPost)
+      .set('Authorization', `Bearer ${result.body.token}`)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+  })
+
 })
 
 
