@@ -59,19 +59,37 @@ blogRouter.delete('/:id',  middleware.userExtractor, async (request,response) =>
 })
 
 
-blogRouter.put('/:id', async(request,response) => {
+blogRouter.put('/:id', middleware.userExtractor, async (request,response) => {
+
   const body = request.body
 
-  const blog = {
+  const userId = await User.findById(request.user)
+
+  console.log(userId._id.toString())
+
+  const blog = await Blog.findById(request.params.id)
+
+  console.log(blog.user._id.toString())
+
+  if(blog.user._id.toString() !== userId.id.toString())
+  {
+    return response.status(401).json({ error: 'only the creator can make changes to their blogs' })
+  }
+
+  const updatingBlog =
+  {
     title:body.title,
     author:body.author,
     url:body.url,
-    likes:body.likes
+    likes:body.likes,
   }
 
-  const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog)
-  response.json(updatedBlog)
+  console.log(request.params.id)
+  const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, updatingBlog)
 
+  console.log(updatedBlog)
+
+  response.json(updatedBlog)
 })
 
 module.exports = blogRouter
