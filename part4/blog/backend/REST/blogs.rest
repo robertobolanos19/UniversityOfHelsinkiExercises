@@ -4,7 +4,7 @@ GET http://localhost:3001/api/blogs
 ###POST TEST
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtgSI6InVzZXJuYW1lMSIsImlkIjoiNjQ5NjBmNGQ4ZDdkYzZmOTQyYTM3N2M3IiwiaWF0IjoxNjg3NTU1OTE5LCJleHAiOjE2ODc1NTk1MTl9.et_dv9PvFfFqhgn6LG-tGgomly1yscBRa92KZQhb8UY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lMSIsImlkIjoiNjQ5OWIxZDFlYzhkMDY4NWU0ZjI1MThmIiwiaWF0IjoxNjg3Nzk0MTMyLCJleHAiOjE2ODc3OTc3MzJ9.BaxOQj-RDAqMuwc4HqsOFAk6kCW5DlMr-eHwQpb1XRE
 
 {
     "title": "testing a note post after login 1",
