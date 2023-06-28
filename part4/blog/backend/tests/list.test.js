@@ -184,16 +184,7 @@ describe('testing blog api requests', () => {
       .expect(201)
       .expect('Content-Type', /application\/json/)
 
-    const loginInfo = {
-      username: 'test1',
-      password: 'test1'
-    }
-
-    await api
-      .post('/api/login')
-      .send(loginInfo)
-      .expect(200)
-      .expect('Content-Type', /application\/json/)
+    const result = 'testing token'
 
     const blogPost = {
       title: 'testing a note post after login 1',
@@ -205,6 +196,7 @@ describe('testing blog api requests', () => {
     await api
       .post('/api/blogs')
       .send(blogPost)
+      .set('Authorization', result)
       .expect(401)
       .expect('Content-Type', /application\/json/)
   })
